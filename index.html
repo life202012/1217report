@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<title>聖誕老人的數學禮物：七年級數學闖關</title>
+<style>
+:root{--dw:2.7rem;--nw:3.4rem;--step:.5rem;--blue:#1f4e8c;--ok:#1b7a3d;--bad:#b3261e;--line:#222}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:#f3f5f9;color:#1d2433;line-height:1.65;font-size:17px}
+.wrap{max-width:920px;margin:0 auto;padding:12px 12px 60px}
+h1{font-size:1.6rem;margin:.4em 0 .1em;color:var(--blue)}
+.sub{margin:0 0 .8em;color:#52607a}
+.card{background:#fff;border:1px solid #d5dbe7;border-radius:10px;padding:14px 16px;margin:12px 0}
+.note{background:#eef4fc;border-color:#c5d7f0}
+button{font:inherit;cursor:pointer;border:1px solid #9aa8c2;background:#fff;color:#1d2433;border-radius:8px;padding:8px 14px;margin:4px 6px 4px 0}
+button:hover:not(:disabled){background:#eef2fa}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700;padding:10px 20px}
+button.primary:hover:not(:disabled){background:#173c6e}
+button.danger{border-color:var(--bad);color:var(--bad)}
+.scard{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid #d5dbe7;border-left:6px solid var(--blue);border-radius:10px;padding:12px 16px;margin:10px 0}
+.scard.lock{border-left-color:#b6bdcc;background:#f0f1f4;color:#7b8396}
+.scard.done{border-left-color:var(--ok)}
+.sname{font-weight:700;font-size:1.1rem}
+.sdesc{font-size:.9rem;color:#52607a}
+.sprog{font-size:.9rem}
+.badge{display:inline-block;border-radius:999px;padding:1px 10px;font-size:.85rem;background:#e3e8f2;margin-right:6px}
+.badge.done{background:#d8f0e0;color:var(--ok)}
+.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ttl{font-weight:700;font-size:1.2rem;color:var(--blue)}
+.snav{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}
+.snav button{padding:4px 10px;margin:0;font-size:.9rem}
+.snav button.cur{background:var(--blue);color:#fff;border-color:var(--blue)}
+.snav button.dn{border-color:var(--ok)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.chips button{margin:0;padding:5px 12px;font-size:.92rem}
+.chips button.cur{background:#dfe9fa;border-color:var(--blue);font-weight:700}
+.chips button.dn::after{content:" ✓";color:var(--ok)}
+.stem{font-size:1.15rem;margin:.2em 0 .8em}
+.num{font-size:1.5rem;font-weight:700;letter-spacing:.08em;color:var(--blue)}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{text-align:left;font-size:1.15rem;padding:12px 14px;margin:0;border:2px solid #b9c4da;border-radius:10px;background:#fff}
+.opt.sel{border-color:var(--blue);background:#e6effc}
+.opt.right{border-color:var(--ok);background:#e3f5ea}
+.opt .lab{color:#52607a;margin-right:6px}
+.opt.long{grid-column:1/-1}
+.fb{border-radius:10px;padding:10px 14px;margin:12px 0;border:2px solid}
+.fb.bad{background:#fdeceb;border-color:#e6a29d;color:#6b140f}
+.fb.ok{background:#e5f6ec;border-color:#8fcfa5;color:#12532a}
+.fb.info{background:#fff6dc;border-color:#ecd48a;color:#5e4a05}
+.fb ul{margin:.3em 0 0 1.2em;padding:0}
+.fb .concept{margin-top:8px;padding:8px 10px;background:rgba(255,255,255,.7);border-radius:8px;color:#1d2433}
+.fb .proc{margin-top:6px}
+.ladderwrap{overflow-x:auto;padding:6px 2px 10px}
+.ladder{display:inline-block;min-width:min-content;padding:6px 8px}
+.lrow{display:flex;align-items:stretch;min-height:2.9rem}
+.ldiv{flex:none;width:var(--dw);display:flex;align-items:center;justify-content:center;border-right:2.5px solid var(--line)}
+.lnums{display:flex;border-bottom:2.5px solid var(--line)}
+.lgap{border-bottom:2.5px solid var(--line);flex:none}
+.lsp{flex:none}
+.lrow.lastrow .lgap{border-bottom-color:transparent}
+.lrow.lastrow .ldiv{border-right-color:transparent}
+.lrow.lastrow .lnums{border-bottom-color:transparent}
+.c{width:var(--nw);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.fixed{font-weight:700}
+.okv{color:var(--ok);font-weight:700;font-size:1.3rem}
+.okv.k3{color:#0b5cd5}
+.okv.k2{color:#c2570c}
+.okv.kc{color:#1d2433}
+.inp{font:inherit;font-size:1.25rem;text-align:center;border:2px solid #8da2c8;border-radius:6px;background:#fffef5;height:2.35rem;padding:0;color:#1d2433}
+.inp:focus{outline:3px solid #9cc0f5;border-color:var(--blue)}
+.inp.d{width:calc(var(--dw) - .45rem)}
+.inp.q{width:calc(var(--nw) - .5rem)}
+.inp.bad{border-color:var(--bad);background:#fff0ef}
+.inp.good{border-color:var(--ok);background:#eaf8ef}
+.inp:disabled{color:#1d2433;opacity:1}
+.inp.wide{width:5.2rem}
+.inp.b{width:3.1rem}
+.inp.e{width:2.5rem;height:2rem;font-size:1rem;margin-left:1px;position:relative;top:-.8rem}
+.stdline{font-size:1.4rem;margin:.6em 0;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.stdline .term{display:inline-flex;align-items:flex-start;white-space:nowrap}
+.stdline .times{margin:0 4px;color:#52607a}
+.stdline .lbl{font-weight:700;margin-right:6px}
+.ask{background:#eef4fc;border:1px solid #c5d7f0;border-radius:10px;padding:10px 14px;margin:10px 0}
+.given{background:#f6f8fc;border:1px dashed #9aa8c2;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:1.25rem}
+.given small{display:block;font-size:.9rem;color:#52607a}
+table.rec{width:100%;border-collapse:collapse;font-size:.95rem}
+table.rec th,table.rec td{border:1px solid #d5dbe7;padding:6px 8px;text-align:left;vertical-align:top}
+table.rec th{background:#eef2fa}
+table.pr{border-collapse:collapse;margin:6px 0}
+table.pr th,table.pr td{border:1px solid #c5cde0;padding:3px 10px;text-align:center}
+#modal .back{position:fixed;inset:0;background:rgba(20,30,50,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modal .box{background:#fff;border-radius:12px;padding:18px 20px;max-width:460px;width:100%}
+.small{font-size:.9rem;color:#52607a}
+sup{font-size:.7em}
+@media(max-width:520px){:root{--dw:2.3rem;--nw:2.95rem;--step:.4rem}body{font-size:16px}.c{font-size:1.1rem}.inp{font-size:1.1rem}.num{font-size:1.3rem}}
+
+/* ===== 聖誕主題：白底、手繪日系 ===== */
+:root{--blue:#3a6b57;--cream:#fff8ec;--warm:#e3d3bf;--ink:#6b5348}
+body{background:#fff;background-image:radial-gradient(circle,#eef4f8 2.5px,transparent 3px),radial-gradient(circle,#f6efe6 2px,transparent 2.5px);background-size:90px 90px,61px 61px;background-position:0 0,30px 40px;font-family:"Yuanti TC","Hiragino Maru Gothic ProN","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+h1{color:#c85a52;letter-spacing:.04em;text-align:center;margin:.3em 0 .1em}
+.sub{text-align:center}
+.card,.scard{border:2px solid var(--warm);border-radius:16px 20px 17px 19px/19px 16px 20px 17px;box-shadow:2px 3px 0 #f1e8dc}
+.scard{border-left:2px solid var(--warm)}
+.scard.lock{background:#faf7f3}
+.scard.done{background:#f7fbf5;border-color:#bfd9c6}
+.note,.ask{background:var(--cream);border:2px solid #ecd9bf}
+.given,table.rec th{background:var(--cream)}
+.given{border:2px dashed #d8c3a5}
+button{border:2px solid #cdbba5;border-radius:12px 14px 12px 15px/14px 12px 15px 12px;background:#fff}
+button:hover:not(:disabled){background:#fff3e3}
+button.primary{background:#c85a52;border-color:#b04a43;color:#fff}
+button.primary:hover:not(:disabled){background:#b04a43}
+.opt{border:2px solid #d8c8b4;border-radius:14px 16px 14px 17px/16px 14px 17px 14px}
+.opt.sel{border-color:var(--blue);background:#e9f3ec}
+.chips button.cur{background:#e3efe6;border-color:var(--blue)}
+.snav button.cur{background:var(--blue);border-color:var(--blue)}
+.inp{border:2px solid #b9a48c}
+.inp:focus{outline:3px solid #f0b8a8;border-color:#c85a52}
+.scene{display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:6px 0 0}
+.pile{display:flex;align-items:flex-end;margin:0 4px}
+.pile .ico+.ico{margin-left:-6px}
+.ico{display:inline-block;vertical-align:middle;flex:none}
+.bubble{position:relative;background:var(--cream);border:2px solid #ecd9bf;border-radius:18px 20px 18px 22px/20px 18px 22px 18px;padding:10px 14px;margin:14px 0 10px;box-shadow:2px 3px 0 #f1e8dc}
+.bubble::before{content:"";position:absolute;top:-9px;left:calc(50% - 48px);width:14px;height:14px;background:var(--cream);border-left:2px solid #ecd9bf;border-top:2px solid #ecd9bf;transform:rotate(45deg)}
+.gifts{margin-top:6px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;font-weight:700;color:#8a5a44}
+.sleft{display:flex;align-items:center;gap:12px;min-width:0}
+.topico{margin-left:auto;display:flex;align-items:flex-end;gap:2px}
+.okhead{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.fb.ok{background:#f1f8ee;border-color:#b5d6bc}
+.final{display:flex;gap:12px;align-items:center}
+@media(max-width:520px){.topico{display:none}.bubble::before{left:calc(50% - 40px)}}
+
+/* ===== 首頁改版：日系手繪聖誕 ===== */
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--red:#c85a52;--pine:#3a6b57;--kraft:#e9d9c3}
+.hand{font-family:"Klee One","Yuanti TC","Hiragino Maru Gothic ProN","Noto Sans TC",sans-serif}
+.hero{position:relative;overflow:hidden;background:#fffdf8;border:2.5px solid var(--warm);border-radius:26px 30px 24px 32px/30px 24px 32px 26px;box-shadow:3px 4px 0 #f1e8dc;padding:34px 16px 18px;margin-top:10px;text-align:center}
+.hero::after{content:"";position:absolute;inset:7px;border:2px dashed #ecdcc6;border-radius:22px;pointer-events:none}
+.garland{position:absolute;top:0;left:0;width:100%;height:34px}
+.fl{position:absolute;top:-30px;opacity:.75;animation:fall linear infinite;pointer-events:none}
+@keyframes fall{to{transform:translateY(420px) rotate(200deg)}}
+@media(prefers-reduced-motion:reduce){.fl{animation:none;top:20px}}
+.kicker{display:inline-block;margin:6px 0 0;padding:2px 16px;background:var(--pine);color:#fffaf0;border-radius:6px 9px 7px 10px;transform:rotate(-1.5deg);font-size:.9rem;letter-spacing:.18em;box-shadow:2px 2px 0 #cfe0d4}
+.hero h1{font-family:"Klee One","Yuanti TC","Noto Sans TC",sans-serif;font-weight:600;font-size:2rem;margin:.35em 0 .1em;text-shadow:2px 2px 0 #fbe3dc}
+.route{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 6px;margin:10px 0 2px;font-size:.88rem;color:var(--ink)}
+.route b{font-weight:500;background:var(--cream);border:1.5px solid #ecd9bf;border-radius:10px 12px 10px 13px;padding:1px 9px}
+.route i{font-style:normal;color:#c9b59c}
+.talk{display:flex;gap:10px;align-items:flex-start;margin:16px 0 4px;text-align:left}
+.talk .bubble{flex:1;margin:0}
+.talk .bubble::before{top:14px;left:-9px;transform:rotate(-45deg)}
+.gprog{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.pbar{flex:1;min-width:120px;height:14px;border:2px solid #cdbba5;border-radius:10px 8px 11px 9px;background:#fff;overflow:hidden}
+.pbar span{display:block;height:100%;background:repeating-linear-gradient(135deg,#e9a29a 0 8px,#f6c9c2 8px 16px);border-radius:8px;transition:width .6s}
+.sechead{display:flex;align-items:center;gap:10px;margin:26px 2px 6px;font-size:1.25rem;color:var(--pine)}
+.sechead::after{content:"";flex:1;border-top:2.5px dotted #d8c3a5}
+.scard{position:relative;transition:transform .2s}
+.scard:nth-of-type(odd){transform:rotate(-.35deg)}
+.scard:nth-of-type(even){transform:rotate(.35deg)}
+.scard:hover:not(.lock){transform:translateY(-2px) rotate(0)}
+.stamp{flex:none;width:34px;height:34px;display:grid;place-items:center;border:2.5px solid var(--red);color:var(--red);border-radius:50% 46% 52% 48%/48% 52% 46% 50%;font-weight:700;transform:rotate(-8deg)}
+.scard.lock .stamp{border-color:#cfc7bd;color:#b5aca0}
+.scard.done .stamp{border-color:var(--pine);color:var(--pine)}
+.sticky{position:relative;background:#fff6c9;border:none;border-radius:4px 6px 18px 6px;box-shadow:3px 4px 0 #efe2a8;transform:rotate(.6deg);margin-top:22px}
+.sticky::before{content:"";position:absolute;top:-11px;left:calc(50% - 38px);width:76px;height:20px;background:repeating-linear-gradient(90deg,#f4b6b0 0 8px,#fde7e3 8px 16px);opacity:.85;transform:rotate(-2deg)}
+.foot{text-align:center;color:#a8957f;font-size:.85rem;margin-top:22px}
+@media(max-width:520px){.hero h1{font-size:1.55rem}.talk .ico{display:none}.talk .bubble::before{display:none}}
+</style>
+</head>
+<body>
+<div id="sprite" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"></div>
+<div id="app"></div>
+<div id="modal"></div>
+<script>
+'use strict';
+/* ==================== LOGIC START（純數學邏輯，不碰網頁元素） ==================== */
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[rnd(0,a.length-1)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const lcm=(a,b)=>a/gcd(a,b)*b;
+const isPrime=n=>{if(n<2)return false;for(let i=2;i*i<=n;i++)if(n%i===0)return false;return true};
+const factorize=n=>{const r=[];for(let p=2;p*p<=n;p++){let e=0;while(n%p===0){n/=p;e++}if(e)r.push([p,e])}if(n>1)r.push([n,1]);return r};
+const flatF=n=>factorize(n).flatMap(([p,e])=>Array(e).fill(p));
+const omega=n=>flatF(n).length;
+const spf=n=>factorize(n)[0][0];
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const digits=n=>String(n).split('').map(Number);
+const sup=(p,e)=>e>1?`${p}<sup>${e}</sup>`:`${p}`;
+const stdHTML=f=>f.map(([p,e])=>sup(p,e)).join('×');
+const stdVal=f=>f.reduce((s,[p,e])=>s*Math.pow(p,e),1);
+const minus=v=>v<0?'－'+(-v):String(v);
+const toInt=s=>(typeof s==='string'&&/^\s*\d{1,6}\s*$/.test(s))?Number(s):null;
+const PR=[];for(let i=2;i<=100;i++)if(isPrime(i))PR.push(i);
+const P20=[],ODDC=[];for(let i=21;i<=99;i++){if(isPrime(i))P20.push(i);else if(i%2===1)ODDC.push(i)}
+const TRAPC=[21,27,33,39,49,51,57,63,69,77,81,87,91,93,99];
+const pickC=()=>Math.random()<0.8?pick(TRAPC):pick(ODDC);
+function uniq(n,fn){const s=new Set();let g=0;while(s.size<n&&g++<800)s.add(fn());if(s.size<n)throw new Error('uniq failed');return [...s]}
+const hasSq=f=>f.some(x=>x[1]>=2&&x[1]<=3)&&f.every(x=>x[1]<=3);
+const L3_POOL=[];for(let n=40;n<=150;n++){const w=omega(n);if(w>=3&&w<=5&&hasSq(factorize(n)))L3_POOL.push(n)}
+const L4_POOL=[];for(let n=48;n<=420;n++){const f=factorize(n);if(f.length>=2&&omega(n)>=3&&omega(n)<=6&&hasSq(f))L4_POOL.push(n)}
+const L4B_POOL=[];for(let n=48;n<=420;n++){const f=factorize(n);if(f.length>=2&&omega(n)>=3&&omega(n)<=6)L4B_POOL.push(n)}
+
+/* ---- 整除判別 ---- */
+const RULE_TXT={3:'3 的倍數：各位數字和是 3 的倍數',4:'4 的倍數：末兩位數是 4 的倍數',5:'5 的倍數：個位數字是 0 或 5',6:'6＝2×3：要同時是 2 的倍數（個位是偶數）與 3 的倍數（各位數字和是 3 的倍數）',8:'8 的倍數：末三位數是 8 的倍數',9:'9 的倍數：各位數字和是 9 的倍數',12:'12＝3×4：要同時是 3 的倍數與 4 的倍數',15:'15＝3×5：要同時是 3 的倍數與 5 的倍數',18:'18＝2×9：要同時是 2 的倍數與 9 的倍數',20:'20＝4×5：要同時是 4 的倍數與 5 的倍數',21:'21＝3×7：要同時是 3 的倍數與 7 的倍數（7 的倍數直接用 7 去除來檢查）',36:'36＝4×9：要同時是 4 的倍數與 9 的倍數',45:'45＝5×9：要同時是 5 的倍數與 9 的倍數'};
+const PARTS={2:[2],3:[3],4:[4],5:[5],6:[2,3],8:[8],9:[9],12:[3,4],15:[3,5],18:[2,9],20:[4,5],21:[3,7],36:[4,9],45:[5,9]};
+function basicTest(N,k){
+  const ds=digits(N),u=ds[ds.length-1];let ok,txt;
+  if(k===2){ok=u%2===0;txt=`個位數字是 ${u}，${ok?'是偶數':'是奇數'}`}
+  else if(k===3||k===9){const s=sum(ds);ok=s%k===0;txt=`各位數字和 ${ds.join('＋')}＝${s}，${ok?'是':'不是'} ${k} 的倍數`}
+  else if(k===4){ok=(N%100)%4===0;txt=`末兩位數 ${String(N).slice(-2)}，${ok?'是':'不是'} 4 的倍數`}
+  else if(k===5){ok=u===0||u===5;txt=`個位數字是 ${u}，${ok?'是':'不是'} 0 或 5`}
+  else if(k===7){const q=Math.floor(N/7),r=N%7;ok=r===0;txt=ok?`${N}÷7＝${q}，整除`:`${N}÷7＝${q}…餘 ${r}，不整除`}
+  else if(k===8){ok=(N%1000)%8===0;txt=`末三位數 ${String(N).slice(-3)}，${ok?'是':'不是'} 8 的倍數`}
+  return {ok,txt};
+}
+function divTest(N,d){
+  const ps=PARTS[d].map(k=>basicTest(N,k));const ok=ps.every(p=>p.ok);
+  let body=ps.map(p=>p.txt).join('；');
+  if(PARTS[d].length>1)body+=`；${d}＝${PARTS[d].join('×')}，${ok?'兩項都成立':'至少有一項不成立'}`;
+  return {ok,body};
+}
+function multOf(d,lo,hi,avoid){for(let k=0;k<500;k++){const x=d*rnd(Math.ceil(lo/d),Math.floor(hi/d));if(!avoid.has(x))return x}throw new Error('multOf')}
+function nearNon(d,lo,hi,avoid){
+  const traps=[],all=[];for(let t=1;t<d;t++){all.push(t);if(gcd(t,d)>1)traps.push(t)}
+  for(let k=0;k<800;k++){
+    const m=d*rnd(Math.ceil(lo/d),Math.floor(hi/d));
+    const t=(traps.length&&Math.random()<0.75)?pick(traps):pick(all);
+    const x=m+t;if(x>=lo&&x<=hi&&x%d!==0&&!avoid.has(x))return x;
+  }
+  throw new Error('nearNon');
+}
+function mcFinal(o){
+  if(o.options.filter(x=>x.ok).length!==1)throw new Error('MC 必須剛好一個正確：'+o.key);
+  if(new Set(o.options.map(x=>x.h)).size!==o.options.length)throw new Error('選項重複：'+o.key);
+  o.kind='mc';return o;
+}
+
+/* ---- 第一關：三題（3、4、5／11／12、15、20、21 的倍數），選項皆 3～4 位數 ---- */
+function mcMult(d,tag,concept){
+  const lens=shuffle([3,4,pick([3,4]),pick([3,4])]),rg=l=>[Math.pow(10,l-1),Math.pow(10,l)-1];
+  const avoid=new Set(),nums=[],parts=PARTS[d]||[d];
+  let [lo,hi]=rg(lens[0]);const good=multOf(d,lo,hi,avoid);avoid.add(good);nums.push(good);
+  for(let i=1;i<4;i++){
+    [lo,hi]=rg(lens[i]);
+    let x=null;
+    if(parts.length>1&&Math.random()<0.7){
+      for(let k=0;k<500;k++){const y=rnd(lo,hi);if(y%d!==0&&!avoid.has(y)&&parts.some(p=>basicTest(y,p).ok)){x=y;break}}
+    }
+    if(x===null)x=nearNon(d,lo,hi,avoid);
+    avoid.add(x);nums.push(x);
+  }
+  nums.sort((a,b)=>a-b);
+  const describe=x=>{const T=divTest(x,d);return `${x}：${T.body}，所以${T.ok?'是':'不是'} ${d} 的倍數。`};
+  const options=nums.map(x=>({h:String(x),ok:x%d===0,hints:[`${RULE_TXT[d]}。請檢查你選的 ${x}。`,describe(x)]}));
+  return mcFinal({type:tag,key:`L1${tag}|${d}|${nums.join(',')}`,stem:`下列哪一個數是 ${d} 的倍數？`,options,explain:nums.map(describe).join('<br>'),concept,meta:{d,opts:nums}});
+}
+function genL1A(){const d=pick([3,4,5]);return mcMult(d,'A',`${RULE_TXT[d]}。`)}
+function genL1C(){const d=pick([12,15,20,21]);return mcMult(d,'C',`${RULE_TXT[d]}。選項常常只通過其中一項檢查，所以每一項條件都要檢查完。`)}
+function elevenTest(x){
+  const ds=digits(x).reverse(),a=ds.filter((_,i)=>i%2===0),b=ds.filter((_,i)=>i%2===1); // 從右邊（個位）數起：第 1、3 位為奇數位
+  const sa=sum(a),sb=sum(b),diff=sa-sb;
+  return {ok:diff%11===0,diff,txt:`(${a.join('＋')})－(${b.join('＋')})＝${sa}－${sb}＝${minus(diff)}`};
+}
+function genL1B(){
+  const lens=shuffle([3,4,pick([3,4]),pick([3,4])]),rg=l=>[Math.pow(10,l-1),Math.pow(10,l)-1];
+  const avoid=new Set(),nums=[];
+  let [lo,hi]=rg(lens[0]);const g=multOf(11,lo,hi,avoid);avoid.add(g);nums.push(g);
+  for(let i=1;i<4;i++){
+    [lo,hi]=rg(lens[i]);
+    let x=null;
+    if(Math.random()<0.5){for(let k=0;k<600;k++){const y=rnd(lo,hi);if(y%11!==0&&sum(digits(y))%11===0&&!avoid.has(y)){x=y;break}}}
+    if(x===null)x=nearNon(11,lo,hi,avoid);
+    avoid.add(x);nums.push(x);
+  }
+  nums.sort((a,b)=>a-b);
+  const describe=x=>{const T=elevenTest(x);return `${x}：${T.txt}，${T.ok?'差是 0 或 11 的倍數':'差不是 0，也不是 11 的倍數'}，所以${T.ok?'是':'不是'} 11 的倍數。`};
+  const options=nums.map(x=>({h:String(x),ok:x%11===0,hints:[`11 的倍數判別法：從右邊數起，把第 1、3 位（奇數位）的數字加起來，再減去第 2、4 位（偶數位）的數字和，看差是不是 0 或 11 的倍數。請算算你選的 ${x}。`,describe(x)]}));
+  return mcFinal({type:'B',key:`L1B|${nums.join(',')}`,stem:`下列哪一個數是 11 的倍數？`,options,explain:nums.map(describe).join('<br>'),
+    concept:`11 的倍數判別法：從右邊數起，「奇數位數字和」與「偶數位數字和」的差是 0 或 11 的倍數，這個數就是 11 的倍數。例如 5830：(0＋8)－(3＋5)＝0，所以是 11 的倍數。`,meta:{opts:nums}});
+}
+
+/* ---- 第二關 ---- */
+const primeWhy=p=>{const ps=PR.filter(q=>q*q<=p);return `${p} 不能被 ${ps.join('、')} 整除（試到 ${ps[ps.length-1]} 就夠了，因為再大的質數平方會超過 ${p}），所以只有 1 和 ${p} 兩個因數，是質數。`};
+const primeEx=p=>`${p} 只有 1 和 ${p} 兩個因數，是質數。`;
+const compEx=c=>{const s=spf(c),ds=[];for(let i=2;i<c;i++)if(c%i===0)ds.push(i);return `${c}＝${s}×${c/s}，除了 1 和 ${c} 還有因數 ${ds.join('、')}，是合數。`};
+const compWhy=c=>{const s=spf(c);return `${c}＝${s}×${c/s}，除了 1 和 ${c} 還有因數 ${s}，是合數。`};
+function numOptions(opts,okFn){
+  return opts.map(x=>{const pr=isPrime(x);
+    return {h:String(x),ok:okFn(x),hints:pr?[`想一想：${x} 除了 1 和 ${x} 以外，還有沒有別的因數？可以拿 2、3、5、7 試試看。`,primeWhy(x)]
+      :[`試試看用質數 ${spf(x)} 去除 ${x}。`,compWhy(x)]}});
+}
+function genL2A(){
+  const p=pick(P20),cs=uniq(3,pickC),opts=[p,...cs].sort((a,b)=>a-b);
+  return mcFinal({type:'A',key:`2A|${opts.join(',')}`,
+    stem:`下列哪一個數是質數？`,options:numOptions(opts,x=>isPrime(x)),
+    explain:opts.map(x=>`${x}：${isPrime(x)?primeEx(x):compEx(x)}`).join('<br>'),
+    concept:'質數恰有 1 和本身兩個正因數。',
+    meta:{opts}});
+}
+function genL2B(){ // 不是質數（選項沒有 1）：1 個合數 + 3 個質數
+  const ps=uniq(3,()=>pick(P20)),c=pickC(),opts=[...ps,c].sort((a,b)=>a-b);
+  return mcFinal({type:'B',key:`2B|${opts.join(',')}`,stem:`下列哪一個數<b>不是</b>質數？`,options:numOptions(opts,x=>!isPrime(x)),
+    explain:opts.map(x=>`${x}：${isPrime(x)?primeEx(x):compEx(x)}`).join('<br>'),
+    concept:'質數恰有 1 和本身兩個正因數。',meta:{opts}});
+}
+function genL2C(){ // 不是質數（選項有 1）：1 + 3 個質數
+  const ps=uniq(3,()=>pick(P20)),opts=[1,...ps].sort((a,b)=>a-b);
+  const options=opts.map(x=>x===1?{h:'1',ok:true,hints:['想一想：1 有幾個正因數？質數的定義是什麼？','1 只有一個正因數，不符合質數「恰有兩個正因數」的定義，所以 1 不是質數。']}
+    :{h:String(x),ok:false,hints:[`想一想：${x} 除了 1 和 ${x} 以外，還有沒有別的因數？`,primeWhy(x)]});
+  return mcFinal({type:'C',key:`2C|${opts.join(',')}`,stem:`下列哪一個數<b>不是</b>質數？`,options,
+    explain:`1：1 只有一個正因數（1 自己），所以 1 不是質數，也不是合數。<br>`+ps.map(p=>`${p}：${primeEx(p)}`).join('<br>'),
+    concept:'1 既不是質數，也不是合數。所以「不是質數」的數，不一定是合數。',meta:{opts}});
+}
+
+/* ---- 第三關：質因數分解 ---- */
+function genL3(n){return {kind:'ladder1',type:'A',key:String(n),n,nums:[n],
+  concept:'質因數分解：把合數寫成質數的連乘積。階梯式短除法每次用質數去除；當商變成質數時就可以停止。'}}
+function checkLayer1(n,dS,qS){
+  const d=toInt(dS);
+  if(d===null)return {ok:false,msgs:['請先在左邊填入除數（一個質數）。'],bad:{d:true,q:[false]}};
+  if(d<2)return {ok:false,msgs:[`除數不能是 ${d}，要用大於 1 的質數。`],bad:{d:true,q:[false]}};
+  if(!isPrime(d))return {ok:false,msgs:[`${d} 不是質數（${d}＝${flatF(d).join('×')}）。階梯式短除法的除數一定要是質數，可以先試 ${spf(d)}。`],bad:{d:true,q:[false]}};
+  if(n%d!==0)return {ok:false,msgs:[`${d} 不能整除 ${n}（${n}÷${d} 會有餘數）。請找能整除 ${n} 的質數，可以先用 2、3、5 的整除判別法檢查。`],bad:{d:true,q:[false]}};
+  const q=toInt(qS);
+  if(q===null)return {ok:false,msgs:['除數正確。請再把商填在下一列。'],bad:{d:false,q:[true]}};
+  if(q!==n/d)return {ok:false,msgs:[`除數 ${d} 沒問題，但商不對。驗算：${d}×${q}＝${d*q}。`],bad:{d:false,q:[true]}};
+  return {ok:true,msgs:[],m:1,bad:{d:false,q:[false]}};
+}
+
+/* ---- 第五關 Part A：三數短除法 ---- */
+function pairsCommon(row){const r=[];for(let i=0;i<row.length;i++)for(let j=i+1;j<row.length;j++){const g=gcd(row[i],row[j]);if(g>1)r.push({a:row[i],b:row[j],p:spf(g)})}return r}
+function common3(row){return PR.filter(p=>row.every(x=>x%p===0))}
+function checkLayer3(row,dS,qS){
+  const bad={d:false,q:[false,false,false]};
+  const d=toInt(dS);
+  if(d===null){bad.d=true;return {ok:false,msgs:['請先在左邊填入除數（一個質數）。'],bad}}
+  if(d<2){bad.d=true;return {ok:false,msgs:[`除數不能是 ${d}，要用大於 1 的質數。`],bad}}
+  if(!isPrime(d)){bad.d=true;return {ok:false,msgs:[`${d} 不是質數（${d}＝${flatF(d).join('×')}）。除數要用質數，可以先試 ${spf(d)}，之後再繼續除。`],bad}}
+  const div=row.map(x=>x%d===0),m=div.filter(Boolean).length;
+  if(m<2){bad.d=true;return {ok:false,msgs:[m===0?`${row.join('、')} 都不能被 ${d} 整除。`:`只有 ${row[div.indexOf(true)]} 能被 ${d} 整除。`+`短除法每一層，至少要有兩個數能被除數整除。請換一個質數。`],bad}}
+  const c3=common3(row);
+  if(c3.length&&m<3){bad.d=true;return {ok:false,msgs:[`${row.join('、')} 三個數還有共同的質因數 ${c3.join('、')}。為了正確找出最大公因數，要先把「三個數同除」的質數除完，再做「兩個數同除」。請先用 ${c3[0]} 來除。`],bad}}
+  const msgs=[];
+  row.forEach((x,i)=>{
+    const q=toInt(qS[i]);
+    if(q===null){bad.q[i]=true;msgs.push(`第 ${i+1} 個數 ${x} 下面還沒填好。`);return}
+    if(div[i]){if(q!==x/d){bad.q[i]=true;msgs.push(`${x}÷${d} 的商不是 ${q}。驗算：${d}×${q}＝${d*q}`)}}
+    else if(q!==x){bad.q[i]=true;msgs.push(`${x} 不能被 ${d} 整除，不能亂除，要原樣抄到下一列。`)}
+  });
+  return {ok:msgs.length===0,msgs,m,bad};
+}
+function canonLayers(nums){
+  let row=nums.slice();const L=[];
+  for(;;){
+    let d=null,m=0;
+    for(const p of PR)if(row.every(x=>x%p===0)){d=p;m=3;break}
+    if(!d)for(const p of PR){const c=row.filter(x=>x%p===0).length;if(c>=2){d=p;m=c;break}}
+    if(!d)break;
+    row=row.map(x=>x%d===0?x/d:x);L.push({d,m});
+  }
+  return {layers:L,last:row};
+}
+function genL5A(easy){
+  const MAXN=easy?70:100,MAXL=easy?300:600,MAXLAY=easy?4:5;
+  for(let t=0;t<8000;t++){
+    const g=easy?pick([2,2,3,4,5,6]):pick([2,2,3,4,5,6,7,8,9,10]);const ms=[];
+    for(let x=Math.ceil(20/g);g*x<=MAXN;x++)ms.push(g*x);
+    if(ms.length<4)continue;
+    const nums=shuffle(ms).slice(0,3).sort((a,b)=>a-b);
+    const c=canonLayers(nums),G=gcd(gcd(nums[0],nums[1]),nums[2]),Lc=lcm(lcm(nums[0],nums[1]),nums[2]);
+    if(G<2||Lc>MAXL||c.layers.length<3||c.layers.length>MAXLAY||!c.layers.some(l=>l.m===2))continue;
+    return {kind:'ladder3',type:'A',key:nums.join('-'),nums,easy:!!easy,
+      concept:'最大公因數只乘「三個數都能整除」的除數；最小公倍數要把左邊所有除數，再乘上最後一列剩下的數。最後一列三個數兩兩互質才能停止。'};
+  }
+  throw new Error('genL5A');
+}
+
+/* ---- 第四關：標準分解式 ---- */
+function slotsOf(n){return factorize(n).map(([p,e])=>({p,e}))}
+function checkStd4(slots,bases,exps){
+  const msgs=[],badB=[],badE=[],allp=slots.map(s=>s.p);
+  slots.forEach((s,i)=>{
+    const b=toInt(bases[i]);
+    if(b===null){badB[i]=true;msgs.push(`第 ${i+1} 個底數還沒填。`)}
+    else if(b!==s.p){badB[i]=true;
+      if(!allp.includes(b))msgs.push(`第 ${i+1} 個底數：${b} 不是這個數的質因數，請對照上方的質因數分解結果。`);
+      else msgs.push(`第 ${i+1} 個底數的順序不對。標準分解式的底數要由小到大排列，第 ${i+1} 個應該是${i===0?'最小':`第 ${i+1} 小`}的質因數。`);
+    }
+    if(s.e>1){
+      const e=toInt(exps[i]);
+      if(e===null){badE[i]=true;msgs.push(`第 ${i+1} 個底數的指數還沒填。`)}
+      else if(e!==s.e){badE[i]=true;
+        msgs.push(b===s.p?`${s.p} 的指數不對：回到上方的質因數分解，數一數 ${s.p} 出現了幾次，次數就是指數（你填 ${e}，${e>s.e?'多':'少'}了）。`
+          :`第 ${i+1} 項的指數不對：先確定底數，再數那個質因數在分解式中出現幾次（你填 ${e}，${e>s.e?'多':'少'}了）。`);
+      }
+    }
+  });
+  return {ok:msgs.length===0,msgs,badB,badE};
+}
+function corrupt(f){
+  for(let t=0;t<80;t++){
+    const op=pick(['up','down','swap','replace','drop']);const g=f.map(x=>x.slice());
+    if(op==='up'){g[rnd(0,g.length-1)][1]++}
+    else if(op==='down'){const c=g.map((x,i)=>i).filter(i=>g[i][1]>=2);if(!c.length)continue;g[pick(c)][1]--}
+    else if(op==='swap'){if(g.length<2)continue;const i=rnd(0,g.length-2);if(g[i][1]===g[i+1][1])continue;const tmp=g[i][1];g[i][1]=g[i+1][1];g[i+1][1]=tmp}
+    else if(op==='replace'){const i=rnd(0,g.length-1);const ps=[2,3,5,7,11,13].filter(q=>!g.some(x=>x[0]===q));g[i][0]=pick(ps);g.sort((a,b)=>a[0]-b[0])}
+    else{if(g.length<3)continue;g.splice(rnd(0,g.length-1),1)}
+    if(stdVal(g)!==stdVal(f))return g;
+  }
+  throw new Error('corrupt');
+}
+function diffText(n,f,g){
+  const ps=[...new Set([...f.map(x=>x[0]),...g.map(x=>x[0])])].sort((a,b)=>a-b);const out=[];
+  for(const p of ps){const ef=(f.find(x=>x[0]===p)||[0,0])[1],eg=(g.find(x=>x[0]===p)||[0,0])[1];
+    if(ef===eg)continue;
+    if(ef>0&&eg===0)out.push(`漏掉了質因數 ${p}`);
+    else if(ef===0)out.push(`${p} 不是 ${n} 的質因數，不應該出現`);
+    else out.push(`${p} 出現了 ${ef} 次，指數應該是 ${ef}，不是 ${eg>1?eg:'1（沒寫指數）'}`);}
+  return out.join('；');
+}
+function genL4B(){
+  const pool=[2,3,5,7,11,13];
+  for(let t=0;t<5000;t++){
+    const k=rnd(3,5),ps=shuffle(pool).slice(0,k).sort((a,b)=>a-b);
+    const f=ps.map(p=>[p,pick([1,1,2,2,3])]),N=stdVal(f);
+    if(N<100||N>9999||!f.some(x=>x[1]>1)||flatF(N).length<4)continue;
+    const flat=flatF(N),stdTxt=stdHTML(f),made=[],seen=new Set([stdTxt]);
+    const add=(kind,txt,why)=>{if(!seen.has(txt)){seen.add(txt);made.push({kind,txt,why})}};
+    // 順序不對
+    for(let i=0;i<20&&!made.some(m=>m.kind==='unsorted');i++){const g=shuffle(f);if(g.some((x,j)=>x[0]!==f[j][0]))add('unsorted',stdHTML(g),'底數沒有由小到大排列，不是標準分解式')}
+    // 沒有合併成指數
+    add('flat',flat.join('×'),'相同的質因數沒有合併成指數（例如 2×2 要寫成 2<sup>2</sup>），不是標準分解式');
+    // 用合數當因數
+    for(let n=0;n<2;n++){
+      for(let i=0;i<30;i++){
+        const g=[];shuffle(flat).forEach((p,j)=>{if(j===0||Math.random()<0.4)g.push(p);else g[g.length-1-rnd(0,g.length-1)]*=p});
+        const cs=g.filter(x=>!isPrime(x));
+        if(g.length>=2&&cs.length>=1){const txt=g.slice().sort((a,b)=>a-b).join('×');
+          if(!seen.has(txt)){add('comp',txt,`${[...new Set(cs)].join('、')} 不是質數（${[...new Set(cs)].map(c=>`${c}＝${flatF(c).join('×')}`).join('、')}），標準分解式的底數必須都是質數`);break}}
+      }
+    }
+    // 乘開之後不等於原數
+    try{const w=corrupt(f);add('wrong',stdHTML(w),`乘開是 ${stdVal(w)}，不等於 ${N}`)}catch(e){}
+    const byKind=kd=>made.filter(m=>m.kind===kd);
+    if(!byKind('unsorted').length||!byKind('flat').length||!byKind('comp').length)continue;
+    let dist=[pick(byKind('unsorted')),pick(byKind('flat')),pick(byKind('comp'))];
+    if(Math.random()<0.4&&byKind('wrong').length)dist[rnd(0,2)]=pick(byKind('wrong'));
+    const all=shuffle([{kind:'std',txt:stdTxt,why:''},...dist]);
+    if(new Set(all.map(o=>o.txt)).size!==4)continue;
+    const options=all.map(o=>o.kind==='std'?{h:o.txt,ok:true,hints:['','']}
+      :{h:o.txt,ok:false,hints:['標準分解式要同時符合：① 底數都是質數 ② 由小到大排列 ③ 相同的質因數合併成指數。請逐項檢查你選的式子。',`${o.txt}：${o.why}。`]});
+    const explain=`標準分解式要符合：① 底數都是質數 ② 由小到大排列 ③ 相同的質因數合併成指數（指數 1 不寫）。<br>`+
+      `${N}＝${flat.join('×')}＝${stdTxt}，所以正確答案是 ${stdTxt}。<br>`+all.filter(o=>o.kind!=='std').map(o=>`${o.txt}：${o.why}。`).join('<br>');
+    return mcFinal({type:'B',key:`4B|${N}|${all.map(o=>o.txt).join('|')}`,stem:`下列哪一個是 <span class="num">${N}</span> 的標準分解式？`,options,explain,
+      concept:'標準分解式：把相同的質因數合併成指數形式，質因數由小到大排列。',meta:{N,kinds:all.map(o=>o.kind)}});
+  }
+  throw new Error('genL4B');
+}
+
+/* ---- 第五關 Part B：標準分解式求最大公因數、最小公倍數 ---- */
+function expOf(f,p){const x=f.find(y=>y[0]===p);return x?x[1]:0}
+function stdAnswers(nums){
+  const ps=[...new Set(nums.flatMap(f=>f.map(x=>x[0])))].sort((a,b)=>a-b);
+  const g=[],l=[];
+  for(const p of ps){const es=nums.map(f=>expOf(f,p));if(Math.min(...es)>0)g.push([p,Math.min(...es)]);l.push([p,Math.max(...es)])}
+  return {g,l,ps};
+}
+function genL5B(force){
+  for(let t=0;t<5000;t++){
+    const cnt=force||3,pool=Math.random()<0.2?[2,3,5,7,11]:[2,3,5,7];
+    const nums=[];
+    for(let i=0;i<cnt;i++){const k=pick([2,3,3,4]);nums.push(shuffle(pool).slice(0,k).sort((a,b)=>a-b).map(p=>[p,pick([1,1,2,2,3])]))}
+    if(nums.some(f=>stdVal(f)>3000))continue;
+    if(new Set(nums.map(f=>stdHTML(f))).size<cnt)continue;
+    const A=stdAnswers(nums);
+    if(A.g.length<1)continue;
+    if(!A.g.some(([p])=>{const es=nums.map(f=>expOf(f,p));return Math.min(...es)!==Math.max(...es)}))continue;
+    if(A.l.length===A.g.length)continue;
+    return {kind:'std5b',type:'A',key:nums.map(f=>stdHTML(f)).join('|'),nums,
+      concept:`在標準分解式時，最大公因數：取「${'ABC'.slice(0,cnt).split('').join('、')}都有」的質因數，指數最小者相乘；最小公倍數：取「所有出現過」的質因數，指數最大者相乘。`};
+  }
+  throw new Error('genL5B');
+}
+function parseRows(rows){
+  const list=[],msgs=[];
+  rows.forEach((r,i)=>{
+    const b=(r.b||'').trim(),e=(r.e||'').trim();
+    if(!b&&!e)return;
+    if(!b){msgs.push(`第 ${i+1} 項有指數但沒有底數。`);return}
+    if(!/^\d{1,3}$/.test(b)){msgs.push(`第 ${i+1} 項的底數要填整數。`);return}
+    if(e&&!/^\d{1,2}$/.test(e)){msgs.push(`第 ${i+1} 項的指數要填整數。`);return}
+    if(e==='1'||e==='0'){msgs.push(`第 ${i+1} 項：指數是 1 時不用寫出來，請把指數欄清空。`);return}
+    list.push({p:Number(b),e:e?Number(e):1});
+  });
+  return {list,msgs};
+}
+function checkStdRows(rows,expected,kind,nums,detail){
+  const {list,msgs}=parseRows(rows);
+  const name=kind==='gcd'?'最大公因數':'最小公倍數';
+  if(msgs.length)return {ok:false,msgs};
+  if(!list.length)return {ok:false,msgs:[`${name}還沒有填。請在底數與指數的空格中填入質因數（可以用「＋增加一項」新增）。`]};
+  const out=[];
+  list.forEach(x=>{if(!isPrime(x.p))out.push(`底數 ${x.p} 不是質數；標準分解式的底數都要是質數。`)});
+  const seen=new Set();list.forEach(x=>{if(seen.has(x.p))out.push(`底數 ${x.p} 重複出現了，相同的質因數要合併成一項（用指數表示）。`);seen.add(x.p)});
+  for(let i=1;i<list.length;i++)if(list[i].p<=list[i-1].p){out.push('底數要由小到大排列。');break}
+  const allp=[...new Set(nums.flatMap(f=>f.map(x=>x[0])))];
+  expected.forEach(([p,e])=>{
+    const s=list.find(x=>x.p===p);
+    const es=nums.map(f=>expOf(f,p));
+    if(!s){out.push(kind==='gcd'?`還有質因數沒有取到。每個數都有的質因數都要取。${detail?`（提示：${p} 在每個數都出現。）`:''}`:`還有質因數沒有取到。只要在任何一個數出現過的質因數都要取。${detail?`（提示：看看 ${p}。）`:''}`)}
+    else if(s.e!==e){out.push(`${p} 的指數不對。${kind==='gcd'?'最大公因數的指數要取最小的':'最小公倍數的指數要取最大的'}。${detail?`各數中 ${p} 的指數依序是 ${es.map(x=>x||'0（沒有）').join('、')}。`:'請再看看各個數中這個質因數的指數。'}`)}
+  });
+  list.forEach(x=>{
+    if(!isPrime(x.p))return;
+    if(!expected.some(([p])=>p===x.p)){
+      if(!allp.includes(x.p))out.push(`${x.p} 不是任何一個數的質因數。`);
+      else{const miss=nums.map((f,i)=>expOf(f,x.p)===0?'ABC'[i]:null).filter(Boolean);
+        out.push(`${x.p} 不應該取：${miss.join('、')} 沒有質因數 ${x.p}，它不是「每個數都有」的質因數，所以不能放進最大公因數。`)}
+    }
+  });
+  const ok=out.length===0;
+  return {ok,msgs:[...new Set(out)]};
+}
+/* ==================== LOGIC END ==================== */
+
+/* ==================== UI ==================== */
+const TEACHER=(typeof location!=='undefined')&&/[?&]teacher=1(&|$)/.test(location.search||'');
+const KEY=TEACHER?'math7-quest-teacher-v2':'math7-quest-v2';
+const MAX_EXTRA=3;
+let STORAGE_OK=true;
+const STAGES=[
+ {k:'L1',name:'第一關　因數與倍數',desc:'整除判別法：3、4、5、11、12、15、20、21 的倍數',plan:['A','B','C'],tn:{A:'3、4、5 的倍數判別',B:'11 的倍數判別',C:'12、15、20、21 的倍數判別'}},
+ {k:'L2',name:'第二關　質數與合數',desc:'找出質數、找出不是質數的數（含 1）',plan:['A','B','C'],tn:{A:'找出質數',B:'找出不是質數的數',C:'找出不是質數的數（選項有 1）'}},
+ {k:'L3',name:'第三關　質因數分解',desc:'階梯式短除法（商是質數就可停止）',plan:['A','A'],tn:{A:'階梯式短除法'}},
+ {k:'L4',name:'第四關　標準分解式',desc:'承接第三關的結果，寫成指數形式；選出正確的標準分解式',plan:['A','A','B'],tn:{A:'寫成標準分解式',B:'選出正確的標準分解式'}},
+ {k:'L5A',name:'第五關 Part A　三數短除法',desc:'用階梯式短除法求最大公因數與最小公倍數',plan:['A','A','A'],tn:{A:'三個數的階梯式短除法'}},
+ {k:'L5B',name:'第五關 Part B　標準分解式求公因數、公倍數',desc:'在底數與指數空格中填答案（先兩個數，再三個數）',plan:['A','A','A'],tn:{A:'用標準分解式求最大公因數、最小公倍數'}}
+];
+const stOf=k=>STAGES.find(s=>s.k===k);
+let S=null,APP=null;
+
+function newGame(){const o={v:1,stages:{},seen:{},usedL3:[],nid:1,view:{screen:'home',stage:null,idx:0,rec:false}};STAGES.forEach(s=>o.stages[s.k]={items:[]});return o}
+function load(){try{const t=localStorage.getItem(KEY);if(!t)return null;const o=JSON.parse(t);if(o&&o.v===1&&o.stages)return o}catch(e){STORAGE_OK=false}return null}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){STORAGE_OK=false}}
+
+const items=k=>S.stages[k].items;
+const stageDone=k=>items(k).filter(i=>!i.extra&&i.done).length>=stOf(k).plan.length;
+const unlocked=k=>{const i=STAGES.findIndex(s=>s.k===k);return TEACHER||i===0||stageDone(STAGES[i-1].k)};
+
+function fresh(group,gen){
+  let it;
+  for(let t=0;t<80;t++){it=gen();const k=group+'|'+it.key;if(!S.seen[k]){S.seen[k]=1;return it}}
+  Object.keys(S.seen).forEach(k=>{if(k.startsWith(group+'|'))delete S.seen[k]});
+  S.seen[group+'|'+it.key]=1;return it;
+}
+function freshPool(group,pool,mk){
+  let un=pool.filter(n=>!S.seen[group+'|'+n]);
+  if(!un.length){Object.keys(S.seen).forEach(k=>{if(k.startsWith(group+'|'))delete S.seen[k]});un=pool.slice()}
+  const n=pick(un);S.seen[group+'|'+n]=1;return mk(n);
+}
+function makeL4A(){
+  const cand=items('L3').find(it=>it.done&&it.result&&!S.usedL3.includes(it.id));
+  let n,order,src=null;
+  if(cand){S.usedL3.push(cand.id);n=cand.data.n;order=cand.result.factors.slice();src=cand.id;S.seen['L4A|'+n]=1}
+  else{n=freshPool('L4A',L4_POOL,x=>x);order=shuffle(flatF(n));if(Math.random()<0.1)order.sort((a,b)=>a-b)}
+  return {kind:'std4a',type:'A',key:String(n),n,order,src,slots:slotsOf(n),
+    concept:'標準分解式：把相同的質因數合併成指數形式，質因數由小到大排列。'};
+}
+function build(stage,type,nth){
+  switch(stage+type){
+    case 'L1A':return fresh('L1A',genL1A);
+    case 'L1B':return fresh('L1B',genL1B);
+    case 'L1C':return fresh('L1C',genL1C);
+    case 'L2A':return fresh('L2A',genL2A);
+    case 'L2B':return fresh('L2B',genL2B);
+    case 'L2C':return fresh('L2C',genL2C);
+    case 'L3A':return freshPool('L3',L3_POOL,genL3);
+    case 'L4A':return makeL4A();
+    case 'L4B':return fresh('L4B',genL4B);
+    case 'L5AA':{const d=fresh('L5A',()=>genL5A(nth===0));d.color=nth>=0&&nth<2;return d}
+    case 'L5BA':return fresh('L5B',()=>genL5B(nth===0?2:3));
+  }
+  throw new Error('unknown '+stage+type);
+}
+function initState(d){
+  if(d.kind==='mc')return {sel:null};
+  if(d.kind==='ladder1')return {layers:[{d:'',q:[''],ok:false,m:1,bad:null}],status:'work'};
+  if(d.kind==='ladder3')return {layers:[{d:'',q:['','',''],ok:false,m:0,bad:null}],status:'work',gcd:'',lcm:'',gOk:false,lOk:false,gMsg:'',lMsg:''};
+  if(d.kind==='std4a')return {bases:d.slots.map(()=>''),exps:d.slots.map(()=>''),badB:[],badE:[]};
+  if(d.kind==='std5b')return {rows:{gcd:[{b:'',e:''},{b:'',e:''}],lcm:[{b:'',e:''},{b:'',e:''},{b:'',e:''}]},ok:{gcd:false,lcm:false},wrongG:0,wrongL:0,msg:{gcd:null,lcm:null}};
+}
+function addItem(stage,type,extra){
+  const d=build(stage,type,extra?-1:items(stage).length);
+  const it={id:S.nid++,stage,type,extra:!!extra,done:false,wrong:0,fb:null,data:d,state:initState(d),finalHTML:'',result:null};
+  items(stage).push(it);return it;
+}
+function ensureStage(k){if(items(k).length===0)stOf(k).plan.forEach(t=>addItem(k,t,false))}
+function extraType(k){
+  const st=stOf(k),types=[...new Set(st.plan)];
+  const cnt=t=>items(k).filter(i=>i.type===t).length;
+  const m=Math.min(...types.map(cnt));return pick(types.filter(t=>cnt(t)===m));
+}
+
+/* ----- 小工具 ----- */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const setPath=(o,path,v)=>{const ks=path.split('.');for(let i=0;i<ks.length-1;i++)o=o[ks[i]];o[ks[ks.length-1]]=v};
+const fbBad=(msgs,t='還需要修正')=>({t:'bad',h:`<b>✘ ${t}</b><ul>${msgs.map(m=>`<li>${m}</li>`).join('')}</ul>`});
+const fbOk=(h,concept)=>({t:'ok',h:`<div class="okhead">${ico('giftopen','',34,giftVars(1))}<b>✔ 答對了！</b></div>${h}${concept?`<div class="concept"><b>觀念統整：</b>${concept}</div>`:''}`});
+const cur=()=>{const k=S.view.stage;const its=items(k);return its[S.view.idx]};
+const inp=(path,val,cls,dis,bad,good)=>`<input class="inp ${cls}${bad?' bad':''}${good?' good':''}" data-bind="${path}" value="${esc(val)}" inputmode="numeric" autocomplete="off" maxlength="${cls==='wide'?7:cls==='q'?4:3}"${dis?' disabled':''}>`;
+
+/* ----- 聖誕手繪插圖（內嵌 SVG，離線可用） ----- */
+const INK='#6b5348',YEL='#f6d98c',RED='#e2736a',WHT='#fffdf8',SKIN='#fbe3d2',PNK='#f4b6b0';
+const sh=(d,f,w=2.2)=>`<path d="${d}" style="fill:${f}"/><path d="${d}" transform="translate(1.3 1)" fill="none" stroke="${INK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const ln=(d,c=INK,w=2.2)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const ci=(x,y,r,f,w=2)=>sh(`M${x-r} ${y}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0Z`,f,w);
+const STARP=(x,y,k)=>`M${x} ${y-10*k}L${x+3*k} ${y-3*k}L${x+10*k} ${y-2.5*k}L${x+4.5*k} ${y+2.5*k}L${x+6.5*k} ${y+10*k}L${x} ${y+6*k}L${x-6.5*k} ${y+10*k}L${x-4.5*k} ${y+2.5*k}L${x-10*k} ${y-2.5*k}L${x-3*k} ${y-3*k}Z`;
+const VB={tree:[100,132,'0 -8 100 132'],santa:[120,132,'0 0 120 132'],gift:[80,84,'0 0 80 84'],giftopen:[90,100,'-4 -16 90 100'],snow:[40,40,'0 0 40 40'],star:[40,40,'0 0 40 40']};
+const SYMS={
+ tree:sh('M43 100L43 118L57 118L57 100Z','#c9a27e')+sh('M50 52Q58 70 90 100Q50 106 10 100Q42 70 50 52Z','#86b693')+sh('M50 28Q60 46 82 72Q50 78 18 72Q40 46 50 28Z','#97c4a2')+sh('M50 8Q58 24 72 44Q50 48 28 44Q42 24 50 8Z','#a9d1b2')
+  +ci(43,38,3.4,RED)+ci(58,36,3.2,YEL)+ci(36,64,4,YEL)+ci(60,60,4,RED)+ci(72,84,4.2,PNK)+ci(30,88,4.2,RED)+ci(50,84,4,YEL)+sh(STARP(50,2,.95),YEL,1.8),
+ santa:sh('M26 130Q22 84 60 76Q98 84 94 130Z',RED)+sh('M25 118L95 118Q98 130 94 130L26 130Q22 130 25 118Z',WHT)+sh('M30 100L90 100L91 110L29 110Z',INK)+sh('M54 98L66 98L66 112L54 112Z',YEL)
+  +sh('M34 84Q16 90 18 106L30 106Q30 96 40 92Z',RED)+sh('M86 84Q104 90 102 106L90 106Q90 96 80 92Z',RED)+ci(24,109,7,WHT)+ci(96,109,7,WHT)
+  +sh('M40 52Q40 30 60 30Q80 30 80 52Q80 72 60 72Q40 72 40 52Z',SKIN)+sh('M38 54Q36 92 60 96Q84 92 82 54Q72 66 60 62Q48 66 38 54Z',WHT)
+  +sh('M46 60Q52 54 60 60Q68 54 74 60Q68 70 60 64Q52 70 46 60Z',WHT,1.8)+ci(60,57,4,'#f2a79c',1.8)+ln('M51 46L51 48.5',INK,3.6)+ln('M69 46L69 48.5',INK,3.6)
+  +`<circle cx="45" cy="55" r="4.5" style="fill:${PNK};opacity:.85"/><circle cx="75" cy="55" r="4.5" style="fill:${PNK};opacity:.85"/>`
+  +sh('M38 38Q40 12 62 8Q82 4 94 26Q86 22 82 38Z',RED)+sh('M34 36Q60 30 86 36Q88 46 84 48Q60 42 36 48Q32 44 34 36Z',WHT)+ci(95,28,7,WHT),
+ gift:sh('M10 34L70 34L68 78Q40 82 12 78Z','var(--g1)')+sh('M34 24L46 24L45 80L35 80Z','var(--g2)',1.8)+sh('M6 24L74 24L73 38L7 38Z','var(--g1)')+sh('M34 24L46 24L46 38L34 38Z','var(--g2)',1.8)
+  +sh('M40 24Q18 4 22 20Q25 28 40 24Z','var(--g2)')+sh('M40 24Q62 4 58 20Q55 28 40 24Z','var(--g2)')+ci(40,24,4,'var(--g2)',1.8),
+ giftopen:sh('M10 42L70 42L68 82Q40 86 12 82Z','var(--g1)')+sh('M34 42L46 42L45 84L35 84Z','var(--g2)',1.8)+sh(STARP(40,14,1.5),YEL,2)
+  +ln('M16 28L10 22',YEL,2.6)+ln('M64 28L70 22',YEL,2.6)+ln('M40 -6L40 -12',YEL,2.6)
+  +`<g transform="rotate(-22 74 30) translate(22 -6)">`+sh('M6 24L74 24L73 38L7 38Z','var(--g1)')+sh('M34 24L46 24L46 38L34 38Z','var(--g2)',1.8)+`</g>`,
+ snow:ln('M20 4L20 36','#9ec5d9',2.4)+ln('M6 12L34 28','#9ec5d9',2.4)+ln('M34 12L6 28','#9ec5d9',2.4)+ln('M15 8L20 13L25 8','#9ec5d9',2)+ln('M15 32L20 27L25 32','#9ec5d9',2),
+ star:sh(STARP(20,20,1.7),YEL,2)
+};
+const SPRITE=`<svg width="0" height="0" style="position:absolute"><defs><filter id="wob" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>`
+  +Object.keys(SYMS).map(k=>`<symbol id="i-${k}" viewBox="${VB[k][2]}"><g filter="url(#wob)">${SYMS[k]}</g></symbol>`).join('')+`</defs></svg>`;
+function ico(name,cls,h,style){const v=VB[name],w=Math.round(h*v[0]/v[1]);return `<svg class="ico ${cls||''}" width="${w}" height="${h}" viewBox="${v[2]}" style="${style||''}" aria-hidden="true"><use href="#i-${name}"/></svg>`}
+const GIFTCOL=[['#e9a29a','#fff6e6'],['#9fc8aa','#f6d98c'],['#f2cf86','#e9a29a'],['#a9cfe0','#fff6e6'],['#c9b0d9','#f6d98c'],['#f4b6b0','#9fc8aa']];
+const giftVars=(i,locked)=>{const c=locked?['#dcd6cf','#efebe6']:GIFTCOL[i%GIFTCOL.length];return `--g1:${c[0]};--g2:${c[1]}`};
+
+/* ----- 畫面 ----- */
+function render(){
+  const y=window.scrollY||0;
+  APP.innerHTML=S.view.screen==='home'?homeHTML():stageHTML();
+  window.scrollTo(0,y);
+}
+function homeHTML(){
+  const nDone=STAGES.filter(s=>stageDone(s.k)).length,pct=Math.round(nDone/STAGES.length*100);
+  const flakes=[6,20,36,52,68,82,94].map((l,i)=>`<i class="fl" style="left:${l}%;animation-delay:${-i*1.9}s;animation-duration:${9+i%3*2}s">${ico('snow','',14+i%3*6)}</i>`).join('');
+  const bc=['#e9a29a','#9fc8aa','#f2cf86','#a9cfe0','#c9b0d9','#f4b6b0'];
+  const garland=`<svg class="garland" viewBox="0 0 600 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4Q50 30 100 4Q150 30 200 4Q250 30 300 4Q350 30 400 4Q450 30 500 4Q550 30 600 4" fill="none" stroke="#8a6f5a" stroke-width="2.4" stroke-linecap="round"/>`+bc.map((c,i)=>`<circle cx="${50+i*100}" cy="21" r="6" fill="${c}" stroke="#8a6f5a" stroke-width="1.8"/>`).join('')+`</svg>`;
+  const route=['因數與倍數','質數與合數','質因數分解','標準分解式','最大公因數與最小公倍數'].map(t=>`<b>${t}</b>`).join('<i>→</i>');
+  let h=`<div class="wrap"><header class="hero">${garland}${flakes}
+    <div class="scene">${ico('tree','',66)}${ico('santa','',108)}<div class="pile">${ico('gift','',46,giftVars(0))}${ico('gift','',40,giftVars(1))}${ico('gift','',44,giftVars(3))}</div>${ico('tree','',74)}</div>
+    <span class="kicker hand">七年級數學闖關</span>
+    <h1>聖誕老人的數學禮物${TEACHER?'（教師模式）':''}</h1>
+    <div class="route hand">${route}</div></header>
+  <div class="talk">${ico('santa','',64)}<div class="bubble hand">同學們好！我是聖誕老人。完成每一關的基本挑戰，我就送你一份聖誕禮物，一起把 ${STAGES.length} 份禮物都收齊吧！
+    <div class="gprog"><span class="gifts">已收到禮物 ${nDone}／${STAGES.length}</span><div class="pbar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div></div>
+    <div class="gifts">${STAGES.map((s,i)=>stageDone(s.k)?ico('giftopen','',34,giftVars(i)):ico('gift','',28,giftVars(i,true))).join('')}</div></div></div>
+  <div class="card note sticky">每一題都可以按「核對答案」，答錯可以修改後再核對，次數不限。學習進度會自動存在這台裝置的瀏覽器裡，重新整理或關閉網頁後仍會保留。${STORAGE_OK?'':'<br><b style="color:#b3261e">注意：這個瀏覽器目前無法儲存進度（可能是無痕模式），關閉頁面後進度會消失。</b>'}</div>`;
+  if(TEACHER)h+=`<div class="card fb info"><b>教師模式</b>：所有關卡已解鎖，可直接檢視；每題下方有「顯示本題答案」按鈕。教師模式的作答紀錄與學生的進度分開儲存，不會影響學生。</div>`;
+  h+=`<div class="sechead hand">${ico('star','',26)}闖關地圖</div>`;
+  STAGES.forEach((st,i)=>{
+    const un=unlocked(st.k),dn=stageDone(st.k),its=items(st.k),b=its.filter(x=>!x.extra&&x.done).length,ex=its.filter(x=>x.extra&&x.done).length;
+    h+=`<div class="scard ${un?'':'lock'} ${dn?'done':''}"><div class="sleft"><span class="stamp hand">${i+1}</span>${ico(dn?'giftopen':'gift','',52,giftVars(i,!un))}<div><div class="sname">${st.name}</div><div class="sdesc">${st.desc}</div>
+      <div class="sprog">${un?`基本挑戰 ${b}／${st.plan.length}${ex?`　加練完成 ${ex} 題`:''}`:'完成上一關的基本挑戰後解鎖'}</div></div></div>
+      <div><span class="badge ${dn?'done':''}">${!un?'🔒 未解鎖':dn?'✔ 已完成':its.length?'進行中':'可開始'}</span>
+      <button class="primary" data-act="open" data-k="${st.k}" ${un?'':'disabled'}>${dn?'回顧／加練':its.length?'繼續':'開始'}</button></div></div>`;
+  });
+  if(STAGES.every(s=>stageDone(s.k)))h+=`<div class="card fb ok final">${ico('santa','',90)}<div><b>🎉 恭喜！你已經完成全部關卡的基本挑戰。</b>聖誕老人把 ${STAGES.length} 份禮物都送給你了，聖誕快樂！可以進入任一關回顧題目，或繼續加練。</div></div>`;
+  h+=`<div class="card"><b>想重新玩一次？</b><div class="small">「重新開始」會清除目前所有作答紀錄，並重新隨機抽題；只是想查看之前的題目，請直接從上面的關卡進入。</div>
+  <button class="danger" data-act="newgame">重新開始新遊戲</button></div>${TEACHER?'<div class="card note"><button data-act="teacher-toggle">離開教師模式（回到學生版）</button></div>':'<div class="small" style="margin-top:16px"><button data-act="teacher-toggle">教師模式</button></div>'}<div class="foot hand">${ico('tree','',30)} Merry Christmas ${ico('tree','',30)}</div></div>`;
+  return h;
+}
+function stageHTML(){
+  const st=stOf(S.view.stage);ensureStage(st.k);
+  const its=items(st.k);if(S.view.idx>=its.length)S.view.idx=0;
+  const it=its[S.view.idx],b=its.filter(x=>!x.extra&&x.done).length;
+  let h=`<div class="wrap"><div class="top"><button data-act="home">← 關卡總覽</button><div class="ttl">${st.name}</div><div class="topico">${ico('tree','',46)}${ico('santa','',46)}</div></div>`;
+  h+=`<div class="snav">`+STAGES.map(s=>`<button class="${s.k===st.k?'cur':''} ${stageDone(s.k)?'dn':''}" data-act="open" data-k="${s.k}" ${unlocked(s.k)?'':'disabled'}>${s.k.replace('L','').replace('A','A').replace('B','B')}${stageDone(s.k)?'✓':''}</button>`).join('')+`</div>`;
+  h+=`<div class="small">基本挑戰：${b}／${st.plan.length} 題完成　（點下方題號可回看前面的題目）</div><div class="chips">`;
+  its.forEach((x,i)=>{const n=its.slice(0,i+1).filter(y=>y.extra===x.extra).length;
+    h+=`<button class="${i===S.view.idx?'cur':''} ${x.done?'dn':''}" data-act="item" data-i="${i}">${x.extra?'加練 '+n:'第 '+n+' 題'}</button>`});
+  h+=`</div><div class="card">`+itemHTML(it,st)+`</div>`+(TEACHER?teacherBox(it):'');
+  if(stageDone(st.k))h+=panelHTML(st);
+  if(S.view.rec)h+=recordHTML(st);
+  return h+`</div>`;
+}
+function itemHTML(it,st){
+  const d=it.data,n=items(st.k).slice(0,items(st.k).indexOf(it)+1).filter(y=>y.extra===it.extra).length;
+  let h=`<div class="small">${it.extra?'加練 '+n:'第 '+n+' 題'}</div>`;
+  if(d.kind==='mc')h+=mcHTML(it);
+  else if(d.kind==='ladder1'||d.kind==='ladder3')h+=ladderPage(it);
+  else if(d.kind==='std4a')h+=std4aHTML(it);
+  else if(d.kind==='std5b')h+=std5bHTML(it);
+  if(it.fb)h+=`<div class="fb ${it.fb.t}">${it.fb.h}</div>`;
+  if(it.done){
+    const its=items(st.k),nx=its.findIndex((x,i)=>i>its.indexOf(it)&&!x.done&&!x.extra);
+    const nx2=nx>=0?nx:its.findIndex(x=>!x.done&&!x.extra);
+    if(nx2>=0)h+=`<button class="primary" data-act="item" data-i="${nx2}">下一題 →</button>`;
+  }
+  return h;
+}
+function mcHTML(it){
+  const d=it.data;
+  let h=`<div class="stem">${d.stem}</div><div class="opts">`;
+  const long=d.options.some(o=>o.h.length>14);
+  d.options.forEach((o,i)=>{
+    h+=`<button type="button" class="opt ${long?'long':''} ${it.state.sel===i?'sel':''} ${it.done&&o.ok?'right':''}" data-act="pick" data-i="${i}" ${it.done?'disabled':''}><span class="lab">(${'ABCD'[i]})</span>${o.h}</button>`;
+  });
+  h+=`</div>`;
+  if(!it.done)h+=`<div style="margin-top:12px"><button class="primary" data-act="check">核對答案</button></div>`;
+  return h;
+}
+function ladderHTML(it){
+  const st=it.state,L=st.layers,d=it.data,rows=L.length+1,R=Math.max(rows,5);
+  const kc=m=>d.color?(m===3?' k3':m===2?' k2':''):'';
+  let h=`<div class="ladderwrap"><div class="ladder">`;
+  for(let r=0;r<rows;r++){
+    const last=r===L.length,lay=L[r];
+    let cells;
+    if(r===0)cells=d.nums.map(x=>`<span class="c fixed">${x}</span>`);
+    else{const pl=L[r-1],prev=r===1?d.nums:L[r-2].q.map(Number);cells=pl.q.map((v,i)=>pl.ok?`<span class="c okv${d.color&&prev[i]%Number(pl.d)!==0?' kc':kc(pl.m)}">${v}</span>`:`<span class="c">${inp(`layers.${r-1}.q.${i}`,v,'q',false,pl.bad&&pl.bad.q[i])}</span>`)}
+    const dv=last?'':(lay.ok?`<span class="okv${kc(lay.m)}">${lay.d}</span>`:inp(`layers.${r}.d`,lay.d,'d',false,lay.bad&&lay.bad.d));
+    const left=last?`<div class="lsp" style="width:calc(var(--dw) + var(--step)*${R})"></div>`
+      :`<div class="lsp" style="width:calc(var(--step)*${r})"></div><div class="ldiv">${dv}</div><div class="lgap" style="width:calc(var(--step)*${R-r})"></div>`;
+    h+=`<div class="lrow${last?' lastrow':''}">${left}<div class="lnums">${cells.join('')}</div></div>`;
+  }
+  return h+`</div></div>`;
+}
+function ladderPage(it){
+  const d=it.data,st=it.state,three=d.kind==='ladder3';
+  let h=three?`<div class="stem">請用階梯式短除法，求出 <span class="num">${d.nums.join('、')}</span> 的<b>最大公因數</b>與<b>最小公倍數</b>。</div>
+   <div class="small">操作：在左邊填除數（質數），在下一列填三個商；不能被整除的數，原樣抄下來。每一層至少要有兩個數能同除。先把「三數同除」做完，再做「兩數同除」。最後一列三個數兩兩互質時就可以停止。</div>`
+   :`<div class="stem">請用階梯式短除法，把 <span class="num">${d.n}</span> 分解成質因數的連乘積。</div>
+   <div class="small">操作：在左邊填除數（質數），在下一列填商。當商是質數時就可以停止。</div>`;
+  h+=ladderHTML(it);
+  if(d.color)h+=`<div class="small"><b style="color:#0b5cd5">■ 藍色</b>：三個數都能整除的除數與商（用來求最大公因數）　<b style="color:#c2570c">■ 橘色</b>：只有兩個數能整除的除數與商</div>`;
+  if(!it.done){
+    if(st.status==='work')h+=`<button class="primary" data-act="check">核對這一層</button>`;
+    else if(st.status==='ask')h+=`<div class="ask"><b>${three?'還要繼續短除法嗎？':'還需要繼續分解嗎？'}</b><br><button data-act="ld-cont">${three?'繼續短除法':'繼續分解'}</button><button data-act="ld-stop">${three?'不用了，可以停止':'不需要，已經完成'}</button></div>`;
+    else if(st.status==='ans')h+=ansHTML(it);
+  }else if(three)h+=ansHTML(it);
+  return h;
+}
+function ansHTML(it){
+  const st=it.state;
+  return `<div class="ask"><div><b>短除法完成！</b>請根據短除法的結果，填入答案：</div>
+  <div class="stdline"><span class="lbl">最大公因數＝</span>${inp('gcd',st.gcd,'wide',st.gOk||it.done,false,st.gOk)}</div>
+  ${st.gMsg&&!st.gOk?`<div class="fb bad">${st.gMsg}</div>`:''}
+  <div class="stdline"><span class="lbl">最小公倍數＝</span>${inp('lcm',st.lcm,'wide',st.lOk||it.done,false,st.lOk)}</div>
+  ${st.lMsg&&!st.lOk?`<div class="fb bad">${st.lMsg}</div>`:''}
+  ${it.done?'':`<button class="primary" data-act="check-ans">核對答案</button>`}</div>`;
+}
+function std4aHTML(it){
+  const d=it.data,st=it.state;
+  let h=`<div class="given"><small>${d.src?'你在第三關完成的質因數分解：':'題目給的質因數分解：'}</small>${d.n}＝${d.order.join('×')}</div>
+  <div class="stem">請將上面的結果寫成<b>標準分解式</b>（質因數由小到大排列，相同的質因數合併成指數）。</div><div class="stdline"><span class="lbl">${d.n}＝</span>`;
+  d.slots.forEach((s,i)=>{
+    h+=(i?`<span class="times">×</span>`:'')+`<span class="term">${inp('bases.'+i,st.bases[i],'b',it.done,st.badB[i],it.done)}${s.e>1?inp('exps.'+i,st.exps[i],'e',it.done,st.badE[i],it.done):''}</span>`;
+  });
+  h+=`</div><div class="small">只出現一次的質因數，指數 1 不用寫，所以沒有指數空格。</div>`;
+  if(!it.done)h+=`<button class="primary" data-act="check">核對答案</button>`;
+  return h;
+}
+function rowsHTML(it,kind){
+  const st=it.state,rows=st.rows[kind],ok=st.ok[kind],lock=ok||it.done;
+  let h=`<div class="stdline"><span class="lbl">${kind==='gcd'?'最大公因數':'最小公倍數'}＝</span>`;
+  rows.forEach((r,i)=>{h+=(i?`<span class="times">×</span>`:'')+`<span class="term">${inp(`rows.${kind}.${i}.b`,r.b,'b',lock,false,ok)}${inp(`rows.${kind}.${i}.e`,r.e,'e',lock,false,ok)}</span>`});
+  h+=lock?'':`<span><button data-act="row-add" data-w="${kind}">＋增加一項</button><button data-act="row-del" data-w="${kind}" ${rows.length<=1?'disabled':''}>－減少一項</button></span>`;
+  h+=`</div>`;
+  const m=st.msg[kind];if(m&&!ok)h+=`<div class="fb bad">${m}</div>`;
+  return h;
+}
+function std5bHTML(it){
+  const d=it.data;
+  let h=`<div class="stem">已知：</div><div class="given">${d.nums.map((f,i)=>`${'ABC'[i]}＝${stdHTML(f)}`).join('<br>')}</div>
+  <div class="stem">請在底數與指數的空格中，填出標準分解式（質因數由小到大排列）。</div>
+  <div class="small">指數是 1 時不用寫，請把指數欄留空；不夠用可按「＋增加一項」，多出來的空格可以按「－減少一項」或留白。</div>`;
+  h+=rowsHTML(it,'gcd')+rowsHTML(it,'lcm');
+  if(!it.done)h+=`<button class="primary" data-act="check">核對答案</button>`;
+  return h;
+}
+function panelHTML(st){
+  const last=st.k==='L5B',nx=STAGES[STAGES.findIndex(s=>s.k===st.k)+1];
+  return `<div class="card note"><div class="okhead">${ico('giftopen','',46,giftVars(STAGES.findIndex(x=>x.k===st.k)))}<b>${last?'🎉 最後一關的基本挑戰完成了！':'✔ 本關基本挑戰完成！'}</b></div>聖誕老人把這一關的禮物送給你了！接下來你可以：<br>
+  ${items(st.k).filter(x=>x.extra).length>=MAX_EXTRA?`<span class="small">（加練已達上限 ${MAX_EXTRA} 題）</span>`:`<button data-act="extra">再練習一題（已加練 ${items(st.k).filter(x=>x.extra).length}／${MAX_EXTRA}）</button>`}${nx?`<button class="primary" data-act="next-stage">前往下一關</button>`:`<button class="primary" data-act="home">回到關卡總覽</button>`}
+  <button data-act="rec">${S.view.rec?'收起作答紀錄':'查看本關作答紀錄'}</button></div>`;
+}
+function recordHTML(st){
+  const its=items(st.k);
+  let h=`<div class="card"><b>${st.name}　作答紀錄</b><table class="rec"><tr><th>題目</th><th>狀態</th><th>答錯次數</th><th>最後答案</th><th></th></tr>`;
+  its.forEach((x,i)=>{const n=its.slice(0,i+1).filter(y=>y.extra===x.extra).length;
+    h+=`<tr><td>${x.extra?'加練 ':'第 '}${n}${x.extra?'':' 題'}<br><span class="small">${st.tn[x.type]}</span></td><td>${x.done?'✔ 完成':'未完成'}</td><td>${x.wrong}</td><td>${x.done?x.finalHTML:'—'}</td><td><button data-act="item" data-i="${i}">檢視</button></td></tr>`});
+  return h+`</table></div>`;
+}
+
+/* ----- 教師模式：顯示答案 ----- */
+function teacherAnswer(it){
+  const d=it.data;
+  if(d.kind==='mc')return `<b>正確答案：</b>${d.options.filter(o=>o.ok).map(o=>`(${'ABCD'[d.options.indexOf(o)]}) ${o.h}`).join('')}<div class="proc">${d.explain}</div><div class="proc"><b>觀念統整：</b>${d.concept}</div>`;
+  if(d.kind==='ladder1'){let c=d.n,steps=[],ds=[];while(!isPrime(c)){const p=spf(c);steps.push(`${c}÷${p}＝${c/p}`);ds.push(p);c/=p}ds.push(c);
+    return `<b>參考答案：</b>${d.n}＝${ds.join('×')}<div class="proc">短除法（除數由小到大）：${steps.join('；')}，最後的商 ${c} 是質數，停止。（其他合法的質數順序也都正確）</div>`}
+  if(d.kind==='ladder3'){const c=canonLayers(d.nums);let row=d.nums.slice(),lines=[`${row.join('、')}`];c.layers.forEach(l=>{row=row.map(x=>x%l.d===0?x/l.d:x);lines.push(`÷${l.d}（${l.m===3?'三數同除':'兩數同除'}）→ ${row.join('、')}`)});
+    const g=c.layers.filter(l=>l.m===3).map(l=>l.d),all=c.layers.map(l=>l.d).concat(c.last.filter(x=>x!==1));
+    return `<b>參考答案（其中一種合法順序）：</b><div class="proc">${lines.join('<br>')}</div><div class="proc">最大公因數＝${g.join('×')}＝${d.nums.reduce(gcd)}<br>最小公倍數＝${all.join('×')}＝${d.nums.reduce(lcm)}</div>`}
+  if(d.kind==='std4a')return `<b>參考答案：</b>${d.n}＝${stdHTML(factorize(d.n))}`;
+  if(d.kind==='std5b'){const A=stdAnswers(d.nums);return `<b>參考答案：</b><br>最大公因數＝${stdHTML(A.g)}＝${stdVal(A.g)}<br>最小公倍數＝${stdHTML(A.l)}＝${stdVal(A.l)}`}
+  return '';
+}
+function teacherBox(it){
+  const open=S.view.tans;
+  return `<div class="card note"><b>教師模式</b>　<button data-act="t-ans">${open?'隱藏本題答案':'顯示本題答案'}</button>${open?`<div class="fb ok" style="margin-top:8px">${teacherAnswer(it)}</div>`:''}</div>`;
+}
+
+/* ----- 作答核對 ----- */
+function finish(it,fb,fin,result){it.done=true;it.fb=fb;it.finalHTML=fin;if(result)it.result=result}
+function doCheck(it){
+  const d=it.data,st=it.state;
+  if(it.done)return;
+  if(d.kind==='mc'){
+    if(st.sel===null){it.fb={t:'info',h:'請先選擇一個答案，再按「核對答案」。'};return}
+    const o=d.options[st.sel];
+    if(o.ok)finish(it,fbOk(`<div class="proc"><b>正確答案：</b>${o.h}</div><div class="proc">${d.explain}</div>`,d.concept),o.h);
+    else{it.wrong++;const hs=o.hints.filter(Boolean);const hint=hs.length?hs[Math.min(it.wrong>2?hs.length-1:0,hs.length-1)]:'再想一想。';
+      it.fb=fbBad([hint],'再想一想，這個選項不是答案');}
+    return;
+  }
+  if(d.kind==='ladder1'||d.kind==='ladder3'){
+    const L=st.layers,li=L.length-1,lay=L[li];
+    if(st.status!=='work')return;
+    const row=li===0?d.nums:L[li-1].q.map(Number);
+    const res=d.kind==='ladder1'?checkLayer1(row[0],lay.d,lay.q[0]):checkLayer3(row,lay.d,lay.q);
+    lay.bad=res.bad;
+    if(res.ok){lay.ok=true;lay.m=res.m;st.status='ask';lay.bad=null;
+      it.fb={t:'ok',h:`<b>✔ 這一層正確！</b>${d.kind==='ladder3'?` ${lay.d} ${res.m===3?'同時整除了三個數（三數同除，會用在最大公因數）':'整除了其中兩個數（兩數同除）'}。`:''}`};}
+    else{it.wrong++;it.fb=fbBad(res.msgs)}
+    return;
+  }
+  if(d.kind==='std4a'){
+    const r=checkStd4(d.slots,st.bases,st.exps);st.badB=r.badB;st.badE=r.badE;
+    if(r.ok){const f=d.slots.map(s=>[s.p,s.e]);
+      finish(it,fbOk(`<div class="proc"><b>正確答案：</b>${d.n}＝${stdHTML(f)}</div><div class="proc">${d.n}＝${d.order.join('×')}（你的質因數分解）<br>由小到大排列：${d.n}＝${flatF(d.n).join('×')}<br>${f.map(([p,e])=>e>1?`${p} 出現 ${e} 次，寫成 ${p}<sup>${e}</sup>`:`${p} 只出現 1 次，直接寫 ${p} 即可`).join('；')}。</div>`,d.concept),`${d.n}＝${stdHTML(f)}`);
+    }else{it.wrong++;it.fb=fbBad(r.msgs)}
+    return;
+  }
+  if(d.kind==='std5b'){
+    const A=stdAnswers(d.nums);
+    ['gcd','lcm'].forEach(k=>{
+      if(st.ok[k])return;
+      const wk=k==='gcd'?'wrongG':'wrongL';
+      const r=checkStdRows(st.rows[k],k==='gcd'?A.g:A.l,k,d.nums,st[wk]>=1);
+      if(r.ok){st.ok[k]=true;st.msg[k]=null}
+      else{st[wk]++;it.wrong++;st.msg[k]=`<b>✘ ${k==='gcd'?'最大公因數':'最小公倍數'}還需要修正</b><ul>${r.msgs.map(m=>`<li>${m}</li>`).join('')}</ul>`}
+    });
+    if(st.ok.gcd&&st.ok.lcm){
+      const gv=stdVal(A.g),lv=stdVal(A.l);
+      let tb=`<table class="pr"><tr><th>質因數</th>${d.nums.map((_,i)=>`<th>${'ABC'[i]} 的指數</th>`).join('')}<th>最小者</th><th>最大者</th></tr>`;
+      A.ps.forEach(p=>{const es=d.nums.map(f=>expOf(f,p));const mn=Math.min(...es),mx=Math.max(...es);
+        tb+=`<tr><td>${p}</td>${es.map(e=>`<td>${e?e:'X'}</td>`).join('')}<td>${mn>0?mn:'X'}</td><td>${mx}</td></tr>`});
+      tb+='</table>';
+      finish(it,fbOk(`<div class="proc"><b>最大公因數＝${stdHTML(A.g)}＝${A.g.map(([p,e])=>Array(e).fill(p).join('×')).join('×')}＝${gv}</b><br><b>最小公倍數＝${stdHTML(A.l)}＝${A.l.map(([p,e])=>Array(e).fill(p).join('×')).join('×')}＝${lv}</b></div><div class="proc">${tb}</div>`,d.concept),
+        `最大公因數＝${stdHTML(A.g)}＝${gv}；最小公倍數＝${stdHTML(A.l)}＝${lv}`);
+    }else if(st.ok.gcd||st.ok.lcm){it.fb={t:'info',h:`${st.ok.gcd?'最大公因數':'最小公倍數'}已經正確，請繼續修正另一個。`}}
+    else it.fb={t:'bad',h:'兩個答案都還需要修正，請看下面的提示。'};
+  }
+}
+function doCheckAns(it){
+  const d=it.data,st=it.state;if(it.done)return;
+  const nums=d.nums,G=nums.reduce(gcd),Lm=nums.reduce(lcm);
+  if(!st.gOk){
+    const g=toInt(st.gcd);
+    if(g===null){st.gMsg='請輸入最大公因數（整數）。';it.wrong++}
+    else if(g===G)st.gOk=true;
+    else{it.wrong++;st.gMsg=`<b>最大公因數不對。</b> ${g>0&&nums.every(x=>x%g===0)?`${g} 是三個數的公因數，但還不是最大的。`:`${g} 不是三個數的公因數${g>0?`（${nums.find(x=>x%g!==0)} 不能被 ${g} 整除）`:''}。`}<br>提示：最大公因數只乘「三個數都能同除」的那些除數。`}
+  }
+  if(!st.lOk){
+    const l=toInt(st.lcm);
+    if(l===null){st.lMsg='請輸入最小公倍數（整數）。';it.wrong++}
+    else if(l===Lm)st.lOk=true;
+    else{it.wrong++;st.lMsg=`<b>最小公倍數不對。</b> ${l>0&&nums.every(x=>l%x===0)?`${l} 是三個數的公倍數，但還不是最小的。`:`${l} 不是三個數的公倍數${l>0?`（${nums.find(x=>l%x!==0)} 不能整除 ${l}）`:''}。`}<br>提示：最小公倍數＝左邊所有除數，再乘上最後一列剩下的數。`}
+  }
+  if(st.gOk&&st.lOk){
+    const L=st.layers,ds=L.map(l=>+l.d),g3=L.filter(l=>l.m===3).map(l=>+l.d),last=L[L.length-1].q.map(Number).filter(x=>x!==1);
+    finish(it,fbOk(`<div class="proc"><b>最大公因數＝${g3.join('×')}＝${G}</b>（只乘三數同除的除數）<br><b>最小公倍數＝${ds.concat(last).join('×')}＝${Lm}</b>（所有除數，再乘最後一列剩下的數）</div>`,d.concept),`最大公因數 ${G}；最小公倍數 ${Lm}`);
+  }else it.fb=st.gOk||st.lOk?{t:'info',h:`${st.gOk?'最大公因數':'最小公倍數'}已經正確，請繼續修正另一個。`}:{t:'bad',h:'請看下面的提示，修改後再按「核對答案」。'};
+}
+function ldCont(it){
+  const d=it.data,st=it.state,L=st.layers,lay=L[L.length-1];if(it.done||st.status!=='ask')return;
+  const q=lay.q.map(Number);
+  if(d.kind==='ladder1'){
+    if(isPrime(q[0])){it.fb={t:'info',h:`目前的商 ${q[0]} 已經是質數，不能再分解了，可以停止。請按「不需要，已經完成」。`};return}
+    L.push({d:'',q:[''],ok:false,m:1,bad:null});st.status='work';it.fb=null;return;
+  }
+  const pc=pairsCommon(q);
+  if(!pc.length){it.fb={t:'info',h:`最後一列 ${q.join('、')} 已經兩兩互質，不需要再除了。請按「不用了，可以停止」。`};return}
+  L.push({d:'',q:['','',''],ok:false,m:0,bad:null});st.status='work';it.fb=null;
+}
+function ldStop(it){
+  const d=it.data,st=it.state,L=st.layers,lay=L[L.length-1];if(it.done||st.status!=='ask')return;
+  const q=lay.q.map(Number);
+  if(d.kind==='ladder1'){
+    if(!isPrime(q[0])){it.wrong++;it.fb=fbBad([`商 ${q[0]} 還不是質數，它還能再分解（例如 ${q[0]} 可以被 ${spf(q[0])} 整除）。請按「繼續分解」。`],'還不能停止')}
+    else{const fac=L.map(l=>+l.d).concat([q[0]]);
+      finish(it,fbOk(`<div class="proc"><b>${d.n}＝${fac.join('×')}</b><br>因為最後的商 ${q[0]} 是質數，所以可以停止。<br>驗算：${fac.join('×')}＝${d.n}。這個結果會用在第四關。</div>`,d.concept),`${d.n}＝${fac.join('×')}`,{factors:fac});}
+    return;
+  }
+  const pc=pairsCommon(q);
+  if(pc.length){it.wrong++;const c3=common3(q);
+    it.fb=fbBad([c3.length?`最後一列 ${q.join('、')} 三個數還有共同質因數 ${c3[0]}，還要繼續除。`:`最後一列 ${pc.map(x=>`${x.a} 與 ${x.b}`).join('、')} 還有共同質因數 ${pc[0].p}，還能同除，所以不能停止。請按「繼續短除法」。`],'還不能停止');return}
+  st.status='ans';it.fb={t:'ok',h:`<b>✔ 短除法完成！</b>最後一列 ${q.join('、')} 兩兩互質，可以停止（不需要都除到 1）。請在下面填入最大公因數與最小公倍數。`};
+}
+
+/* ----- 事件 ----- */
+function go(stage,idx){S.view={screen:'stage',stage,idx:idx==null?0:idx,rec:false};ensureStage(stage)}
+function onAct(act,ds){
+  ds=ds||{};const v=S.view;
+  switch(act){
+    case 'home':v.screen='home';break;
+    case 'open':{if(!unlocked(ds.k))break;ensureStage(ds.k);const its=items(ds.k);let i=its.findIndex(x=>!x.done&&!x.extra);if(i<0)i=0;go(ds.k,i);break}
+    case 'item':v.idx=Number(ds.i);v.tans=false;break;
+    case 't-ans':v.tans=!v.tans;break;
+    case 'teacher-toggle':location.href=location.pathname+(TEACHER?'':'?teacher=1');return;
+    case 'pick':{const it=cur();if(it&&!it.done)it.state.sel=Number(ds.i);break}
+    case 'check':doCheck(cur());break;
+    case 'check-ans':doCheckAns(cur());break;
+    case 'ld-cont':ldCont(cur());break;
+    case 'ld-stop':ldStop(cur());break;
+    case 'row-add':{const it=cur();if(it&&!it.done&&it.state.rows[ds.w].length<6)it.state.rows[ds.w].push({b:'',e:''});break}
+    case 'row-del':{const it=cur();if(it&&!it.done&&it.state.rows[ds.w].length>1)it.state.rows[ds.w].pop();break}
+    case 'extra':{const k=v.stage;if(items(k).filter(x=>x.extra).length>=MAX_EXTRA)break;const t=extraType(k);addItem(k,t,true);v.idx=items(k).length-1;v.rec=false;v.tans=false;break}
+    case 'next-stage':{const i=STAGES.findIndex(s=>s.k===v.stage);const nx=STAGES[i+1];if(nx&&unlocked(nx.k))onAct('open',{k:nx.k});break}
+    case 'rec':v.rec=!v.rec;break;
+    case 'newgame':showModal(`<div class="box"><b>確定要重新開始嗎？</b><p>重新開始會<b>清除目前所有作答紀錄與進度</b>，並重新隨機抽題。<br>如果只是想看之前的題目，請按「取消」，再從關卡進入查看。</p><button data-act="modal-close">取消</button><button class="danger" data-act="newgame-yes">確定重新開始</button></div>`);return;
+    case 'newgame-yes':S=newGame();showModal('');break;
+    case 'modal-close':showModal('');return;
+  }
+  save();render();
+}
+function onInput(path,val){const it=cur();if(!it||it.done)return;setPath(it.state,path,val);save()}
+function showModal(h){const m=document.getElementById('modal');m.innerHTML=h?`<div class="back">${h}</div>`:''}
+function init(){
+  S=load()||newGame();
+  APP=document.getElementById('app');
+  const sp=document.getElementById('sprite');if(sp)sp.innerHTML=SPRITE;
+  APP.addEventListener('click',onClick);
+  document.getElementById('modal').addEventListener('click',onClick);
+  APP.addEventListener('input',e=>{const t=e.target;if(t&&t.dataset&&t.dataset.bind){
+    let val=t.value;
+    onInput(t.dataset.bind,val)}});
+  APP.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.dataset&&e.target.dataset.bind){
+    const it=cur();if(!it||it.done)return;
+    const d=it.data;
+    if(d.kind==='ladder3'&&it.state.status==='ans')onAct('check-ans');
+    else if(d.kind==='ladder1'||d.kind==='ladder3'){if(it.state.status==='work')onAct('check')}
+    else onAct('check');
+  }});
+  render();
+}
+function onClick(e){const b=e.target.closest&&e.target.closest('[data-act]');if(!b||b.disabled)return;onAct(b.dataset.act,b.dataset)}
+init();
+</script>
+</body>
+</html>
